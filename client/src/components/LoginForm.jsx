@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./LoginForm.css"; // Import CSS for styling
 import logo from '../Team9LogoTemporary.png';
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page refresh
     console.log("Logging in with:", { username, password });
+    onLogin(username);
     // Add authentication logic here (API call, validation, etc.)
   };
 
