@@ -13,7 +13,7 @@ function App() {
   }, [])
 
   if (globalState.isLoggedIn) {
-    console.log("on welcome page")
+    console.log("Res stuff: " + backendData.users)
     return (
       <div>
         <h1>Welcome, {globalState.username}!</h1>
@@ -21,7 +21,7 @@ function App() {
       </div>
     );
   } else {
-    // console.log("Is logged in: " + globalState.isLoggedIn)
+    console.log("Res stuff: " + backendData)
     return (
       <div>
         <LoginForm />
