@@ -14,6 +14,10 @@ python  (check by running "python --version" or "python3 --version")
 
 and I assume you already have a code editor (VS Code recommended)
 
+Download some form of git software like gitHub desktop to clone the repo.
+
+Once the repo is cloned to an empty folder, navigate to that folder in VSCode.
+
 
 Run these, line by line, in a bash terminal in order to setup the project:
 
