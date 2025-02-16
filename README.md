@@ -39,3 +39,10 @@ npm start
 The "React App" should now be running at http://localhost:3000/
 
 If you change and save any file, the website will automatically update thanks to nodemon
+
+
+Remember that the server must be running to use the backend, so run:
+
+node server.js
+
+whenever you boot this project up and start developing
