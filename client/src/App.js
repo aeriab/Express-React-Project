@@ -1,26 +1,6 @@
 import React, { use, useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import LoginForm from './components/LoginForm'
-
-// const LoginPage = ({ setUser }) => {
-//   const navigate = useNavigate(); // Hook to change pages
-
-//   const handleLogin = (username) => {
-//     setUser(username); // Store username in state
-//     navigate("/main"); // Redirect to main page
-//   };
-
-//   return <LoginForm onLogin={handleLogin} />;
-// };
-
-// const MainPage = ({ user }) => {
-//   return (
-//     <div className="main-page">
-//       <h2>Welcome, {user}!</h2>
-//       <p>This is the main page after logging in.</p>
-//     </div>
-//   );
-// };
+import { globalState, updateGlobalState } from "./global.js";
 
 function App() {
 
@@ -31,16 +11,23 @@ function App() {
       .then(res => res.json())
       .then(data => setBackendData(data))
   }, [])
-  
-  return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={user ? <Navigate to="/main" /> : <LoginPage setUser={setUser} />} />
-    //     <Route path="/main" element={user ? <MainPage user={user} /> : <Navigate to="/" />} />
-    //   </Routes>
-    // </Router>
-    <LoginForm/>
-  );
-};
+
+  if (globalState.isLoggedIn) {
+    console.log("on welcome page")
+    return (
+      <div>
+        <h1>Welcome, {globalState.username}!</h1>
+        <button onClick={() => updateGlobalState("", false)}>Logout</button>
+      </div>
+    );
+  } else {
+    // console.log("Is logged in: " + globalState.isLoggedIn)
+    return (
+      <div>
+        <LoginForm />
+      </div>
+    );
+  }
+}
 
 export default App
