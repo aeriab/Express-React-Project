@@ -3,7 +3,7 @@ import "./LoginForm.css"; // Import CSS for styling
 import logo from '../Team9LogoTemporary.png';
 import { globalState, updateGlobalState } from "../global.js";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [backendData, setBackendData] = useState([{}])
 
   const [username, setUsername] = useState("");
@@ -17,7 +17,7 @@ const LoginForm = () => {
   }, [])
 
   const handleCreate = () => {
-    console.log("Creating new user with username " + username + " and password " + password + ".");
+    alert("Creating new user with username lol " + username + " and password " + password + ".");
   }
 
   const handleSubmit = (e) => {
@@ -33,6 +33,7 @@ const LoginForm = () => {
           globalState.username = username;
           globalState.isLoggedIn = true;
           updateGlobalState(username, true);
+          onLogin();
         } else {
           alert("Invalid credentials. Please try again.");
         }
@@ -45,6 +46,8 @@ const LoginForm = () => {
   };
 
   const handleCancel = () => {
+    updateGlobalState("temp", false);
+    console.log("global val: " + globalState.increment);
     setUsername('');
     setPassword('');
   };

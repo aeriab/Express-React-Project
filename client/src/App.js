@@ -1,10 +1,25 @@
 import React, { use, useEffect, useState } from 'react'
 import LoginForm from './components/LoginForm'
+import HomePage from './components/HomePage';
 import { globalState, updateGlobalState } from "./global.js";
+
+
+// LoggedInView.js
+function LoggedInView({ username, onLogout }) {
+  return (
+    <div>
+      <h1>Welcome, {username}!</h1>
+      <button onClick={onLogout}>Logout</button>
+    </div>
+  );
+}
+
 
 function App() {
 
-  const [backendData, setBackendData] = useState([{}])
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize with false
+
+  const [backendData, setBackendData] = useState([{}]);
 
   useEffect(() => {
     fetch('/api')
@@ -12,22 +27,19 @@ function App() {
       .then(data => setBackendData(data))
   }, [])
 
-  if (globalState.isLoggedIn) {
-    console.log("Res stuff: " + backendData.users)
-    return (
-      <div>
-        <h1>Welcome, {globalState.username}!</h1>
-        <button onClick={() => updateGlobalState("", false)}>Logout</button>
-      </div>
-    );
-  } else {
-    console.log("Res stuff: " + backendData)
-    return (
-      <div>
-        <LoginForm />
-      </div>
-    );
-  }
+  const handleLogin = () => {
+    setIsLoggedIn(true); // This will trigger a re-render
+  };
+
+  return (
+    <>
+      {isLoggedIn ? (
+        <HomePage />
+      ) : (
+        <LoginForm onLogin={handleLogin}/>
+      )}
+    </>
+  );
 }
 
 export default App
