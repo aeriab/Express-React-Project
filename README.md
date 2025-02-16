@@ -23,6 +23,10 @@ npm i express
 
 npm i nodemon -D
 
+npm install jsonwebtoken
+
+npm install bcrypt
+
 
 cd ..
 

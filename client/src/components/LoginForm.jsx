@@ -10,38 +10,78 @@ const LoginForm = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   let usernameFound = false;
 
-  useEffect(() => {
-    fetch('/api')
-      .then(res => res.json())
-      .then(data => setBackendData(data))
-  }, [])
+  // useEffect(() => {
+  //   fetch('/api')
+  //     .then(res => res.json())
+  //     .then(data => setBackendData(data))
+  // }, [])
 
   const handleCreate = () => {
     alert("Creating new user with username lol " + username + " and password " + password + ".");
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page refresh
-    console.log("Logging in with:", { username, password });
+  // const handleSubmit = (e) => {
+  //   e.preventDefault(); // Prevent page refresh
+  //   console.log("Logging in with:", { username, password });
 
-    backendData.users.map((user, i) => {
-      if (username === user) {
-        usernameFound = true;
-        console.log("Username found!");
-        if (password === "admin") {
-          console.log("Password correct! Logging in...");
-          globalState.username = username;
-          globalState.isLoggedIn = true;
-          updateGlobalState(username, true);
-          onLogin();
-        } else {
-          alert("Invalid credentials. Please try again.");
-        }
+  //   backendData.users.map((user, i) => {
+  //     if (username === user) {
+  //       usernameFound = true;
+  //       console.log("Username found!");
+  //       if (password === "admin") {
+  //         console.log("Password correct! Logging in...");
+  //         globalState.username = username;
+  //         globalState.isLoggedIn = true;
+  //         updateGlobalState(username, true);
+  //         onLogin();
+  //       } else {
+  //         alert("Invalid credentials. Please try again.");
+  //       }
+  //     }
+  //   })
+
+  //   if (!usernameFound) {
+  //     alert("Username not found.");
+  //   }
+  // };
+
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(true); // Toggle between register/login
+  const [message, setMessage] = useState(''); // For displaying messages (errors, success)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage(''); // Clear any previous messages
+
+    const endpoint = isRegistering ? '/register' : '/login';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Authentication failed'); // Handle backend errors with message
       }
-    })
 
-    if (!usernameFound) {
-      alert("Username not found.");
+      if (isRegistering) {
+        setMessage('Registration successful. Please login.');
+        setIsRegistering(false); // Switch to login form
+      } else {
+        localStorage.setItem('token', data.token); // Store the token
+        // Redirect or update state to reflect logged-in status
+        window.location.href = "/"; // Example of redirect to home page "/"
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      setMessage(error.message); // Display error message to the user
     }
   };
 
