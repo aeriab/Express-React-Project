@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { globalState, updateGlobalState } from "../global.js";
 
-const HomePage = () => {
+const HomePage = ({ onLogout }) => {
   const [backendData, setBackendData] = useState([{}])
 
   const [username, setUsername] = useState("");
@@ -14,32 +14,27 @@ const HomePage = () => {
       .then(data => setBackendData(data))
   }, [])
 
+  const handleLogout = (e) => {
+    e.preventDefault(); // Prevent page refresh
+    console.log("Logging out...");
+    globalState.username = "";
+    globalState.isLoggedIn = false;
+    updateGlobalState("", false);
+    onLogout();
+};
+
   return (
     <div className="login-container">
-      <h2>Home Page !!</h2>
+      <h2>Home Page</h2>
+      <button type="logout" onClick={handleLogout}>Log out</button>
       <form>
 
         <div className="container">
-          <label><b>Username</b></label>
-          <input 
-            type="text" 
-            placeholder="Enter Username" 
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required 
-          />
-
-          <label><b>Password</b></label>
-          <input 
-            type="password" 
-            placeholder="Enter Password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required 
-          />
-          <label>
-            <input type="checkbox" name="remember" /> Remember me
-          </label>
+          <label><b>Username: </b></label>
+          <span>{globalState.username}</span>
+        </div>
+        <div className="container">
+          <h1>Welcome to our attention training web app !!</h1>
         </div>
       </form>
     </div>

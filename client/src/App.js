@@ -4,17 +4,6 @@ import HomePage from './components/HomePage';
 import { globalState, updateGlobalState } from "./global.js";
 
 
-// LoggedInView.js
-function LoggedInView({ username, onLogout }) {
-  return (
-    <div>
-      <h1>Welcome, {username}!</h1>
-      <button onClick={onLogout}>Logout</button>
-    </div>
-  );
-}
-
-
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize with false
@@ -31,10 +20,14 @@ function App() {
     setIsLoggedIn(true); // This will trigger a re-render
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false); // This will trigger a re-render
+  };
+
   return (
     <>
       {isLoggedIn ? (
-        <HomePage />
+        <HomePage onLogout={handleLogout}/>
       ) : (
         <LoginForm onLogin={handleLogin}/>
       )}
