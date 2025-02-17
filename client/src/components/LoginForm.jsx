@@ -10,11 +10,11 @@ const LoginForm = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   let usernameFound = false;
 
-  // useEffect(() => {
-  //   fetch('/api')
-  //     .then(res => res.json())
-  //     .then(data => setBackendData(data))
-  // }, [])
+  useEffect(() => {
+    fetch('/api')
+      .then(res => res.json())
+      .then(data => setBackendData(data))
+  }, [])
 
   const handleCreate = () => {
     alert("Creating new user with username lol " + username + " and password " + password + ".");
