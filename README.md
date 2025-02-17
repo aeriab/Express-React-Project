@@ -40,8 +40,6 @@ npm install
 
 npm install react-router-dom
 
-npm start
-
 
 
 The "React App" should now be running at http://localhost:3000/
@@ -49,8 +47,16 @@ The "React App" should now be running at http://localhost:3000/
 If you change and save any file, the website will automatically update thanks to nodemon
 
 
-Remember that the server must be running to use the backend, so run:
+
+
+TO START THE WEBSITE the server must be running to use the backend, so run:
+
+cd server
 
 node server.js
 
-whenever you boot this project up and start developing
+cd ..
+
+cd client
+
+npm start
