@@ -27,10 +27,6 @@ npm i express
 
 npm i nodemon -D
 
-npm install jsonwebtoken
-
-npm install bcrypt
-
 
 cd ..
 
@@ -42,21 +38,24 @@ npm install react-router-dom
 
 
 
-The "React App" should now be running at http://localhost:3000/
-
 If you change and save any file, the website will automatically update thanks to nodemon
 
 
 
 
 TO START THE WEBSITE the server must be running to use the backend, so run:
+[Navigate to the original project folder (cd ..)]
 
 cd server
 
 node server.js
 
-cd ..
+[That terminal is busy running the server now, open a new terminal]
 
 cd client
 
 npm start
+
+
+
+The "React App" should now be running at http://localhost:3000/
